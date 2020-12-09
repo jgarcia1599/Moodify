@@ -1,0 +1,24 @@
+{
+  "name": "moodify",
+  "version": "1.0.0",
+  "description": "A music web app for facial moods",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgarcia1599/Moodify.git"
+  },
+  "author": "estelle and junior",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jgarcia1599/Moodify/issues"
+  },
+  "homepage": "https://github.com/jgarcia1599/Moodify#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  }
+}
