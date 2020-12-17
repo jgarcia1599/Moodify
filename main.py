@@ -9,9 +9,9 @@ import time
 
 from moodify import authenticate_spotify, aggregate_top_artists, aggregate_top_tracks, select_tracks, create_playlist
 
-client_id = "a820c3511f824a918a75d17a862c5ed7"
-client_secret = "737bb17cedcf46349ba3005de0ae25fc"
-redirect_uri = "http://localhost:8888/callback/"
+client_id = "xxx"
+client_secret = "xxx"
+redirect_uri = "xxx"
 scope = 'user-library-read user-top-read playlist-modify-public user-follow-read'
 
 access_token = ""
@@ -42,7 +42,7 @@ def index():
 		
 		#refresh token if expired
 		if milli_sec >= int(expiry):
-			print('expired')
+			print('token expired')
 			return redirect(auth_url)
 
 		else:
@@ -64,7 +64,7 @@ def my_callback():
 	global sp_oauth
 	
 	url = request.url
-	
+	#get access token from spotify
 	code = sp_oauth.parse_response_code(url)
 	if code:
 		print("Found Spotify auth code in Request URL! Trying to get valid access token...")
