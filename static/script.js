@@ -1,9 +1,9 @@
-console.log('hiii')
-let captured = false;
+let started = false;
 let video,canvas;
 var mood_val = 0.5;
+var mood_string = 'neutral';
 
-function setup(){
+async function setup(){
     console.log("inside setup");
     canvas = createCanvas(640, 480);
     //Place cavas inside desired DOM element
@@ -11,28 +11,34 @@ function setup(){
     background(255);
     video = createCapture(VIDEO);
     video.hide()
-    faceapi.load
-    faceapi.loadSsdMobilenetv1Model('http://localhost:8888/static/models/')
-    faceapi.loadFaceExpressionModel('http://localhost:8888/static/models/');
     $('#buttonstyle').hide();
+    await faceapi.load
+    await faceapi.loadSsdMobilenetv1Model('http://localhost:8888/static/models/')
+    await faceapi.loadFaceExpressionModel('http://localhost:8888/static/models/');
+    // $('#buttonstyle').hide();
 
-
-
+    document.getElementById("waiting").style.display = "none";
+    $('#buttonstyle').show();
+    console.log('exiting setup');
+    started = true;
 }
 
 function draw(){
+    if (started){
+        background(255);
+    image(video, 640, 0, -640, 480);
     // image(video, 0, 0);
     console.log('whatuppp');
         faceapi.detectAllFaces(video.elt).withFaceExpressions()
         .then((allFaces) => {
-            // console.log(captured);
+            
             
 
             if (allFaces.length > 0){
                 $('#waiting').hide()
                 $('#buttonstyle').show()
-                background(255);
-                image(video, 640, 0, -640, 480);
+                // background(255);
+                // image(video, 640, 0, -640, 480);
                 let moods = allFaces[0]['expressions']
                 // console.log(moods);
                 //Get value/per of each moods
@@ -45,7 +51,7 @@ function draw(){
                 //get highest value of mood
                 let highest_val_mood = Object.keys(moods).reduce((a, b) => moods[a] > moods[b] ? a : b)
                 $('#mood_result').text(highest_val_mood);
-
+                mood_string = highest_val_mood;
 
                 if (highest_val_mood === 'angry')   mood_val = 0.0;
 
@@ -61,6 +67,8 @@ function draw(){
         },
         (onFailure) => console.log(onFailure));
 
+    }
+    
 
 
 }
@@ -77,13 +85,14 @@ function makespotifyrequest(){
           'Content-Type': 'application/json'
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({'mood': mood_val})
+        body: JSON.stringify({'mood': mood_val, 'mood_string': mood_string})
     }).then(function(response){
         response.json().then(function(data){
 
             url = data['result']
             window.location = window.origin + "/results" +'?' + 'url='+url
-
+            console.log('window.origin---------------');
+            console.log(window.origin);
             console.log(data)
         })
         // if (response.status== 200){
