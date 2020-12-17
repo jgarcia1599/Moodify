@@ -25,12 +25,26 @@ async function setup(){
 
 function draw(){
     if (started){
-        background(255);
-    image(video, 640, 0, -640, 480);
     // image(video, 0, 0);
     console.log('whatuppp');
-        faceapi.detectAllFaces(video.elt).withFaceExpressions()
-        .then((allFaces) => {
+        faceapi.detectAllFaces(video.elt).withFaceExpressions().
+        then((allFaces) => {
+            background(255);
+            image(video, 640, 0, -640, 480);
+
+            //draw rectangle
+
+            for (var faces of allFaces) {
+                let face = faces.detection;
+                console.log(faces)
+                console.log(face.box.width)
+                let small = Math.min(face.box.width, face.box.height);
+
+                noFill()
+                stroke('#4CAF50');
+                strokeWeight(2);
+                rect(face.box.x, face.box.y, small, small);
+            }
             
             
 
