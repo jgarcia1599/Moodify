@@ -15,7 +15,7 @@ For our final project, we were having issues coming up with an idea. Despite the
 
 ### Frontend 
 
-In the frontend, our web application relies on <a href="https://github.com/justadudewhohacks/face-api.js/"> face-api.js</a>, JavaScript API for face detection and face recognition in the browser built on top of tensorflow.js, and p5.js, a Processing Library for the browser. Face-api has a trained model for face detection (found in ```static/models/```) which we use to classify a person's facial expression every frame in p5's draw loop. Once a person clicks on the ```Submit to Spotif``` button, we defined the following heuristics to match a person's facial expression to a value we can use for the Spotify API:
+In the frontend, our web application relies on <a href="https://github.com/justadudewhohacks/face-api.js/"> face-api.js</a>, JavaScript API for face detection and face recognition in the browser built on top of tensorflow.js, and p5.js, a Processing Library for the browser. Face-api has a trained model for face detection (found in ```static/models/```) which we use to classify a person's facial expression every frame in p5's draw loop. Once a person clicks on the ```Submit to Spotify``` button, we defined the following heuristics to match a person's facial expression to a value we can use for the Spotify API:
 
 
 ```javascript
