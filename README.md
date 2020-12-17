@@ -13,11 +13,33 @@ For our final project, we were having issues coming up with an idea. Despite the
 
 ## Process and Implementation
 
-In the frontend, our web application relies on <a href="https://github.com/justadudewhohacks/face-api.js/"> face-api.js</a>
+### Frontend 
 
+In the frontend, our web application relies on <a href="https://github.com/justadudewhohacks/face-api.js/"> face-api.js</a>, JavaScript API for face detection and face recognition in the browser built on top of tensorflow.js, and p5.js, a Processing Library for the browser. Face-api has a trained model for face detection (found in ```static/models/```) which we use to classify a person's facial expression every frame in p5's draw loop. Once a person clicks on the ```Submit to Spotif``` button, we defined the following heuristics to match a person's facial expression to a value we can use for the Spotify API:
+
+
+```javascript
+
+if (highest_val_mood === 'angry')   mood_val = 0.0;
+
+else if (highest_val_mood === 'disgusted')  mood_val = 0.2
+
+else if (highest_val_mood === 'happy')  mood_val = 1.0;
+
+else if (highest_val_mood === 'sad')    mood_val = 0.1;
+
+else if (highest_val_mood === 'surprised')  mood_val = 0.7;
+
+```
+where ```highest_val_mood``` is the mood with the highest probability, which can be : angry,disgusted,happy,neutral,sad, surprised. 
+
+This heuristic could be modified and further improved, but this ones gave us some very interesting results. 
+
+### Backend
 
 
 ## Reflection and Evaluation
+We really liked working on this project because it brings together different third party systems into one place, which provided a great learning experience for us as students. Furthermore, from all of the class projects we have worked on, we believe this is an actual application we would use to explore new songs on Spotify. 
 
 
 
