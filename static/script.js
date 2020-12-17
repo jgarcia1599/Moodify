@@ -13,6 +13,7 @@ async function setup(){
     video.hide()
     $('#buttonstyle').hide();
     await faceapi.load
+    //use https://music-moodify.herokuapp.com/static/models/ instead for deployment	
     await faceapi.loadSsdMobilenetv1Model('http://localhost:8888/static/models/')
     await faceapi.loadFaceExpressionModel('http://localhost:8888/static/models/');
     // $('#buttonstyle').hide();
@@ -93,6 +94,7 @@ function makespotifyrequest(){
     console.log("Make Spotify Request; mood val: ",mood_val)
     document.getElementById("loadercontainer").style.display = "flex";
     document.getElementById("jumbo-canvas").style.display = "none";
+    //use fetch(https://music-moodify.herokuapp.com/moodify, ...) instead for deployment	
     fetch('http://localhost:8888/moodify',{
         method: 'POST',
         headers: {
