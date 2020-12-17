@@ -20,10 +20,12 @@ sp_oauth = None
 
 app = Flask(__name__)
 
+#render username page
 @app.route('/')
 def my_form():
 	return render_template('username.html')
 
+#sends auth request
 @app.route('/', methods=['POST'])
 def index():
 	username = request.form['username']
@@ -33,8 +35,10 @@ def index():
 	sp_oauth = oauth2.SpotifyOAuth(client_id, client_secret,redirect_uri,scope=scope,cache_path=cache )
 	
 	auth_url = sp_oauth.get_authorize_url()
+	#get cached token
 	token_info = sp_oauth.get_cached_token()
 	
+	#if cached token exists, get it
 	if token_info:
 		print("Found cached token!")
 		milli_sec = int(round(time.time()))
@@ -44,20 +48,23 @@ def index():
 		if milli_sec >= int(expiry):
 			print('token expired')
 			return redirect(auth_url)
-
+		#if token hasn't expired
 		else:
 			access_token = token_info['access_token']
 		
 			return render_template('index.html') 
+	#if no cached token, get a new access token
 	else:
 		return redirect(auth_url)
 
+#display playlist page	
 @app.route('/results')
 def results():
 	playlist = request.args.get('url')
 	
 	return render_template('playlist.html',playlist = playlist)
 
+#get new access token
 @app.route('/callback/')
 def my_callback():
 	global access_token
@@ -76,7 +83,7 @@ def my_callback():
 
 	else:
 		return render_template('username.html')
-
+#create plalist
 @app.route("/moodify", methods=['POST'])
 def moodify():
 	global access_token
@@ -95,8 +102,3 @@ def moodify():
 	}),200)
 	
 	return res
-
-
-if __name__ == "__main__":
-
-	app.run(host='0.0.0.0')
