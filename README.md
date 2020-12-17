@@ -3,7 +3,7 @@ A music webapp that sees you, understands you.
 
 By Estelle and Junior      
 
-**Video Demo**:https://youtu.be/YXo_wje5Amc    
+**Video Demo**:https://youtu.be/iXTTnEAbFfY
 **Link to Project**: <a href="https://music-moodify.herokuapp.com/">here</a> 
 
 ## Description
